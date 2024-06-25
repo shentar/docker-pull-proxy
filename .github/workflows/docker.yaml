@@ -22,5 +22,5 @@ jobs:
 
     - name: Build and push image to ACR EE
       run: |
-        docker login -u $MY_REGISTRY_USER -p $MY_REGISTRY_PASSWORD $MY_REGISTRY
+        docker login -u $MY_REGISTRY_USER -p $MY_REGISTRY_PASSWORD $MY_REGISTRY_URL
         sh pull.sh
