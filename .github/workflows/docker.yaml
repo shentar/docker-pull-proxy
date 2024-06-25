@@ -22,5 +22,8 @@ jobs:
 
     - name: Build and push image to ACR EE
       run: |
+        docker logout docker.io
+        docker logout 
+        docker logout $MY_REGISTRY_URL
         docker login -u $MY_REGISTRY_USER -p $MY_REGISTRY_PASSWORD $MY_REGISTRY_URL
         sh pull.sh
