@@ -22,8 +22,10 @@ jobs:
 
     - name: Build and push image to ACR EE
       run: |
+        docker pull alpine:latest
         docker logout docker.io
         docker logout 
-        docker logout $MY_REGISTRY_URL
-        docker login -u $MY_REGISTRY_USER -p $MY_REGISTRY_PASSWORD $MY_REGISTRY_URL
-        sh pull.sh
+        docker logout registry.codefine.site:6870
+        docker login -u $MY_REGISTRY_USER -p $MY_REGISTRY_PASSWORD registry.codefine.site:6870
+        docker tag alpine:latest registry.codefine.site:6870/shentar/alpine:latest
+        docker push registry.codefine.site:6870/shentar/alpine:latest
