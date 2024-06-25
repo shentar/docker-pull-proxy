@@ -1,1 +1,1 @@
-alpine:20240606 registry.cn-hangzhou.aliyuncs.com/yaming116/alpine:20240606
+alpine:latest registry.codefine.site:6870/yaming116/alpine:latest
