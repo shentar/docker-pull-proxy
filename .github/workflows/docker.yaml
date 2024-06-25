@@ -3,14 +3,11 @@ name: Docker
 on:
   push:
     branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
-
 env:
-  REGISTRY: registry.cn-hangzhou.aliyuncs.com
-  ALIYUN_REGISTRY_USER: "${{ secrets.ALIYUN_REGISTRY_USER }}"
-  ALIYUN_REGISTRY_PASSWORD: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}"
-  MM_NOTIFY_URL: "${{ secrets.MM_NOTIFY_URL }}"
+  REGISTRY_URL: "${{ REGISTRY_URL }}"
+  REGISTRY_USER: "${{ REGISTRY_USER }}"
+  REGISTRY_PASSWORD: "${{ REGISTRY_PASS }}"
+  MM_NOTIFY_URL: ""
 
 jobs:
 
@@ -26,14 +23,5 @@ jobs:
 
     - name: Build and push image to ACR EE
       run: |
-        docker login -u $ALIYUN_REGISTRY_USER -p $ALIYUN_REGISTRY_PASSWORD $REGISTRY
+        docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY
         sh pull.sh
-        data=`cat trigger.txt`
-
-        if [ $MM_NOTIFY_URL ];then
-          curl  -H 'Content-Type: application/json' \
-            -d "{\"msgtype\": \"text\",\"text\": {\"content\":\"同步成功 $data \"}}" \
-            $MM_NOTIFY_URL
-        else
-          echo 'MM_NOTIFY_URL not set'
-        fi
